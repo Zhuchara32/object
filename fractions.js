@@ -88,10 +88,10 @@ alert(`Результат деления дробей: ${divide.numerator}/${div
 
 let reduction = {};
 
-function reductionF() {
-    if (sum.denominator >= sum.numerator) {
-        if (sum.denominator % sum.numerator == 0 || sum.denominator == sum.numerator) {
-            reduction.denominator = sum.denominator / sum.numerator;
+function reductionF(mathematical) {
+    if (mathematical.denominator >= mathematical.numerator) {
+        if (mathematical.denominator % mathematical.numerator == 0 || mathematical.denominator == mathematical.numerator) {
+            reduction.denominator = mathematical.denominator / mathematical.numerator;
             reduction.numerator = 1;
         }
 
@@ -99,41 +99,46 @@ function reductionF() {
             i = 1;
             do {
                 ++i;
-                reduction.denominator = sum.denominator / i;
-                reduction.numerator = sum.numerator / i;
+                reduction.denominator = mathematical.denominator / i;
+                reduction.numerator = mathematical.numerator / i;
             }
             while (reduction.denominator % i == 0 && reduction.numerator % i == 0);
 
             if (reduction.denominator % i != 0 || reduction.numerator % i != 0) {
-                reduction.numerator = sum.numerator;
-                reduction.denominator = sum.denominator;
+                reduction.numerator = mathematical.numerator;
+                reduction.denominator = mathematical.denominator;
             }
         }
 
     }
     else {
-        if (sum.numerator % sum.denominator == 0) {
-            reduction.numerator = sum.numerator / sum.denominator;
+        if (mathematical.numerator % mathematical.denominator == 0) {
+            reduction.numerator = mathematical.numerator / mathematical.denominator;
             reduction.denominator = 1;
         }
         else {
             i = 1;
             do {
                 ++i;
-                reduction.numerator = sum.numerator / i;
-                reduction.denominator = sum.denominator / i;
+                reduction.numerator = mathematical.numerator / i;
+                reduction.denominator = mathematical.denominator / i;
             }
             while (reduction.denominator % i == 0 && reduction.numerator % i == 0 && i < reduction.numerator);
 
             if (reduction.denominator % i != 0 || reduction.numerator % i != 0) {
-                reduction.numerator = sum.numerator;
-                reduction.denominator = sum.denominator;
+                reduction.numerator = mathematical.numerator;
+                reduction.denominator = mathematical.denominator;
             }
         }
     }
-
 }
 
-reductionF();
-
+reductionF(sum);
 alert(`Сокращенная дробь суммы: ${reduction.numerator}/${reduction.denominator}`);
+reductionF(subtraction);
+alert(`Сокращенная дробь вычетания: ${reduction.numerator}/${reduction.denominator}`);
+reductionF(multiplication);
+alert(`Сокращенная дробь умножения: ${reduction.numerator}/${reduction.denominator}`);
+reductionF(divide);
+alert(`Сокращенная дробь деления: ${reduction.numerator}/${reduction.denominator}`);
+
